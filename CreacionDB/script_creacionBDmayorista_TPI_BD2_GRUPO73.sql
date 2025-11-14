@@ -251,3 +251,14 @@ CREATE TABLE Compra_X_Producto (
     CONSTRAINT FK_CompraProducto_Producto FOREIGN KEY (IdProducto) REFERENCES Productos(IdProducto)
 );
 GO
+
+-- =============================================
+-- TABLA: Productos_Compra_Temporal (para el sp de registrar compra)
+-- =============================================
+
+CREATE TABLE Productos_Compra_Temporal (
+    IdProducto INT,
+    Cantidad INT,
+    PrecioUnitario DECIMAL(12,2)
+);
+GO
