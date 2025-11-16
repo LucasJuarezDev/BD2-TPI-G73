@@ -1,5 +1,5 @@
 ﻿
------------------Procedimiento Almacenado 2------------------------------------------
+-----------------Procedimiento Almacenado 1------------------------------------------
 --generar un reporte de ventas filtrado por rango de fechas, 
 --incluyendo cliente, monto, tipo de pago y cantidad de productos.
 
@@ -30,7 +30,7 @@ BEGIN
 END;
 GO
 
---------------Procedimiento Almacenado 1--------------------------------------------------
+--------------Procedimiento Almacenado 2--------------------------------------------------
 ----registrar una compra completa de forma automática
 
 USE DB_Mayorista_TPI_G73;
