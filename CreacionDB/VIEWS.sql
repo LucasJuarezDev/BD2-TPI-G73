@@ -18,6 +18,7 @@
 	INNER JOIN Tipo_Pago tp ON c.IdTipoPago = tp.IdTipoPago;
 	GO
 
+
 	-- 2. Stock bajo (solo productos activos)
 	CREATE VIEW VW_Stock_Bajo AS
 	SELECT 
@@ -28,6 +29,7 @@
 	FROM Productos
 	WHERE Stock < 10 AND Estado = 1;
 	GO
+
 
 	-- 3. Empleados con puesto principal
 	CREATE VIEW VW_Empleado_Activo AS

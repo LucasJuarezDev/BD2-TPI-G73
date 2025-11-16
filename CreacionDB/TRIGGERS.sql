@@ -3,37 +3,36 @@ GO
 
 
 -- TRIGGER PARA VALIDAR SI EL CLIENTE QUE COMPRO FIGURA ACTIVO
-CREATE TRIGGER tr_ClienteActivoEnCompra
-ON Compra
+CREATE TRIGGER tr_ClienteActivoEnCompraXCliente_AfterInsert
+ON Compra_X_Cliente
 AFTER INSERT
 AS
 BEGIN
     SET NOCOUNT ON;
-
     IF EXISTS (
         SELECT 1
         FROM inserted i
-        INNER JOIN CompraXCliente cxc ON i.IdCompra = cxc.IdCompra
-        INNER JOIN Cliente cl ON cxc.IdCliente = cl.IdCliente
+        INNER JOIN Cliente cl ON i.IdCliente = cl.IdCliente
         WHERE cl.Activo = 0
     )
     BEGIN
-        RAISERROR('No se puede registrar una compra para un cliente inactivo.', 16, 1);
+        RAISERROR('No se puede asociar un cliente inactivo a una compra.', 16, 1);
         ROLLBACK TRANSACTION;
         RETURN;
     END
-END;
+end
 
 
-	-- TRIGGER PARA RESTAURAR STOCK EN CASO DE CANCELACION DE COMPRA
+	-- TRIGGER PARA RESTAURAR STOCK EN CASO DE CANCELACION DE COMPRA-
 	CREATE TRIGGER tr_restaurarStock
-	ON CompraXProducto
+	ON Compra_X_Producto
 	AFTER DELETE
 	AS
 	BEGIN
 		UPDATE p
 		SET p.Stock = p.Stock + d.Cantidad,
 			p.FechaUltimaModificacion = GETDATE()
-		FROM Producto p
+		FROM Productos p
 		INNER JOIN deleted d ON p.IdProducto = d.IdProducto;
 	END;
+
